@@ -55,3 +55,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'faker'
+gem 'activeadmin'
+gem 'devise'
+gem 'sassc-rails'
+gem 'kaminari'
