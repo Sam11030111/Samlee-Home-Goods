@@ -7,4 +7,12 @@ class Review < ApplicationRecord
    # Associations
    belongs_to :user
    belongs_to :product
+
+   def self.ransackable_associations(auth_object = nil)
+    ["image_attachment", "image_blob"]
+   end
+
+   def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "user_id", "product_id", "rating", "comment", "updated_at"]
+   end
 end
