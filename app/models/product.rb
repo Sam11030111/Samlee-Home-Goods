@@ -11,6 +11,11 @@ class Product < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
 
+  # Calculate average rating of the product
+  def average_rating
+    reviews.average(:rating).to_f.round(1) # Calculate and round to 1 decimal place
+  end
+
   def self.ransackable_associations(auth_object = nil)
     ["image_attachment", "image_blob"]
   end

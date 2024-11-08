@@ -1,0 +1,59 @@
+<div class="container p-6">
+  <div class="columns is-vcentered is-variable is-8">
+    <div class="column is-6">
+      <% if @product.image.attached? %>
+        <figure class="image is-4by3">
+          <%= image_tag @product.image, class: 'product-detail-image' %>
+        </figure>
+      <% else %>
+        <figure class="image is-4by3">
+          <img src="/images/shopping.png" alt="Default Product Image" class="product-detail-image">
+        </figure>
+      <% end %>
+    </div>
+    <div class="column is-6">
+      <div class="content">
+        <h1 class="is-size-2 has-text-weight-bold has-text-primary"><%= @product.name %></h1>
+        <p class="is-italic has-text-grey"><strong class="has-text-black">Price:</strong> <%= @product.price %></p>
+        <p class="is-italic has-text-grey"><strong class="has-text-black">Stock:</strong> <%= @product.stock %></p>
+        <p class="is-italic has-text-grey"><strong class="has-text-black">Category:</strong> <%= @product.category.name %></p>
+        <div class="is-flex is-align-items-center mt-2">
+          <img src="<%= image_path('star.png') %>" alt="Star" class="star-image">
+          <p class="is-italic has-text-grey ml-2"><%= @product.average_rating %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container has-text-centered mt-6">
+    <hr class="my-6 has-background-grey-lighter">
+    <h2 class="title is-4 has-text-black">Description</h2>
+    <p class="is-italic has-text-grey"><%= @product.description %></p>
+  </div>
+
+  <div class="container mt-6">
+    <hr class="my-6 has-background-grey-lighter">
+    <h2 class="title is-4 has-text-black">Reviews</h2>
+    <% if @product.reviews.any? %>
+      <% @product.reviews.each do |review| %>
+        <div class="box has-background-light mb-4">
+          <div class="is-flex is-align-items-center">
+          <% if review.user.image.attached? %>
+            <%= image_tag review.user.image, alt: "User", class: "user-image" %>
+          <% else %>
+            <img src="<%= image_path('user.png') %>" alt="User" class="user-image is-rounded">
+          <% end %>
+            <p class="is-italic has-text-grey ml-2"><%= review.user.first_name %> <%= review.user.last_name %></p>
+          </div>
+          <div class="is-flex is-align-items-center mt-2">
+            <img src="<%= image_path('star.png') %>" alt="Star" class="star-image">
+            <p class="has-text-grey ml-2"> <%= review.rating %></p>
+          </div>
+          <p class="has-text-grey mt-2"><%= review.comment %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="is-italic has-text-grey">No reviews available for this product.</p>
+    <% end %>
+  </div>
+</div>

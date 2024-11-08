@@ -8,6 +8,9 @@
   </div>
   <div class="card-content">
     <a href="<%= product_path(product) %>" class="product-name"><%= product.name %></a>
-    <p class="product-price"><%= product.price %></p>
+    <div class="is-flex is-align-items-center mt-2">
+      <img src="<%= image_path('star.png') %>" alt="Star" class="star-image">
+      <p class="average-rating ml-2"><%= product.average_rating %></p>
+    </div>
   </div>
 </div>
