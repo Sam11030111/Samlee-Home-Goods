@@ -1,0 +1,14 @@
+<div class="container p-6">
+  <h1 class="mb-4 has-text-black is-size-1">All Products</h1>
+  <% if @products.any? %>
+    <div class="grid is-gap-6 product-grid">
+      <% @products.each do |product| %>
+        <div class="cell">
+          <%= render partial: 'product', locals: { product: product } %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>There are no products now.</p>
+  <% end %>
+</div>

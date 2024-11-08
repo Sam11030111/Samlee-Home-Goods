@@ -22,6 +22,9 @@ ActiveAdmin.register Product do
         image_tag(url_for(product.image), size: "50x50") # Display a small thumbnail
       end
     end
+    column "Orders" do |product|
+      product.orders.map(&:id).join(", ") # Display the order names
+    end
     column :created_at
     actions
   end
@@ -34,6 +37,7 @@ ActiveAdmin.register Product do
       f.input :stock
       f.input :category
       f.input :image, as: :file
+      f.input :orders, as: :select, multiple: true, collection: Order.all.map { |order| [order.id] }
     end
     f.actions
   end
@@ -49,6 +53,9 @@ ActiveAdmin.register Product do
         if product.image.attached?
           image_tag(url_for(product.image), size: "100x100")
         end
+      end
+      row "Orders" do |product|
+        product.orders.map(&:id).join(", ") # Display the order names
       end
     end
   end

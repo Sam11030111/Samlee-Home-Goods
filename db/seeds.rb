@@ -1,6 +1,14 @@
 # db/seeds.rb
 require 'faker'
 
+# Clear existing data
+OrderItem.destroy_all
+Order.destroy_all
+Review.destroy_all
+Product.destroy_all
+Category.destroy_all
+User.destroy_all
+
 # Create categories
 categories = []
 5.times do
@@ -21,7 +29,7 @@ end
 
 # Create products (Make sure not to exceed 200 total records)
 products = []
-30.times do
+10.times do
   products << Product.create!(
     name: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
@@ -54,7 +62,7 @@ end
 
 # Create reviews
 reviews = []
-30.times do
+20.times do
   reviews << Review.create!(
     user: users.sample,
     product: products.sample,

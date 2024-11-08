@@ -7,8 +7,9 @@ class Product < ApplicationRecord
   # Associations
   has_one_attached :image
   belongs_to :category
-  has_many :order_items
   has_many :reviews
+  has_many :order_items
+  has_many :orders, through: :order_items
 
   def self.ransackable_associations(auth_object = nil)
     ["image_attachment", "image_blob"]

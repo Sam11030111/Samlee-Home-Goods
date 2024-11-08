@@ -1,0 +1,35 @@
+<nav class="navbar is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="<%= image_path("shopping.png") %>" alt="Shopping">
+    </a>
+    <div class="navbar-burger js-burger" data-target="navbarExample">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item <%= active_class('/') %>" href="/"> Products </a>
+      <a class="navbar-item <%= active_class('/owners') %>" href="/owners"> Owners </a>
+      <a class="navbar-item <%= active_class('/locations') %>" href="/locations"> Locations </a>
+      <a class="navbar-item <%= active_class('/about') %>" href="/about"> About </a>
+    </div>
+  </div>
+
+  <div class="navbar-end">
+    <div class="navbar-item">
+      <div class="buttons">
+        <a class="button is-primary">
+          <strong>Sign up</strong>
+        </a>
+        <a class="button is-light">
+          Log in
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

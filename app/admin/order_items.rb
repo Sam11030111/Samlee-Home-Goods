@@ -19,7 +19,7 @@ ActiveAdmin.register OrderItem do
 
   form do |f|
     f.inputs do
-      f.input :order
+      f.input :order, as: :select, collection: Order.all.map { |order| ["#{order.id}", order.id] }
       f.input :product
       f.input :quantity
       f.input :unit_price

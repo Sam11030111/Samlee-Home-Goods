@@ -1,0 +1,13 @@
+<div class="card has-background-white has-shadow">
+  <div class="card-image">
+    <% if product.image.attached? %>
+      <figure class="image is-4by3">
+        <img src="<%= url_for(product.image) %>" width="300" height="300" class="product-card-image" alt="Product Image">
+      </figure>
+    <% end %>
+  </div>
+  <div class="card-content">
+    <a href="<%= product_path(product) %>" class="product-name"><%= product.name %></a>
+    <p class="product-price"><%= product.price %></p>
+  </div>
+</div>
