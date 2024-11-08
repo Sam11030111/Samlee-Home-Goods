@@ -1,5 +1,5 @@
-# db/seeds.rb
-require 'faker'
+require 'open-uri'
+require 'json'
 
 # Clear existing data
 OrderItem.destroy_all
@@ -9,11 +9,9 @@ Product.destroy_all
 Category.destroy_all
 User.destroy_all
 
-# Create categories
-categories = []
-5.times do
-  categories << Category.create!(name: Faker::Commerce.department)
-end
+# Create categories from Fake Store API
+categories_data = JSON.parse(URI.open('https://fakestoreapi.com/products').read).map { |product| product['category'] }.uniq
+categories = categories_data.map { |category_name| Category.create!(name: category_name) }
 
 # Create users
 users = []
@@ -27,16 +25,27 @@ users = []
   )
 end
 
-# Create products (Make sure not to exceed 200 total records)
-products = []
-10.times do
-  products << Product.create!(
-    name: Faker::Commerce.product_name,
-    description: Faker::Lorem.paragraph,
-    price: Faker::Commerce.price(range: 10..100.0),
+# Create products from Fake Store API
+products_data = JSON.parse(URI.open('https://fakestoreapi.com/products').read)
+products = products_data.map do |product_data|
+  # Find the corresponding category
+  category = categories.find { |cat| cat.name == product_data['category'] }
+
+  # Create the product with the image URL
+  product = Product.create!(
+    name: product_data['title'],
+    description: product_data['description'],
+    price: product_data['price'],
     stock: Faker::Number.between(from: 1, to: 100),
-    category: categories.sample
+    category: category,
   )
+
+  # Download and attach the image
+  image_url = product_data['image']
+  downloaded_image = URI.open(image_url)
+  product.image.attach(io: downloaded_image, filename: "product_#{product.id}.jpg", content_type: 'image/jpeg')
+  
+  product
 end
 
 # Create orders

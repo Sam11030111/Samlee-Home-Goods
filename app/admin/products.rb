@@ -37,7 +37,6 @@ ActiveAdmin.register Product do
       f.input :stock
       f.input :category
       f.input :image, as: :file
-      f.input :orders, as: :select, multiple: true, collection: Order.all.map { |order| [order.id] }
     end
     f.actions
   end

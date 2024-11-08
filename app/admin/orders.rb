@@ -25,7 +25,6 @@ ActiveAdmin.register Order do
       f.input :user, as: :select, collection: User.all.map { |user| ["#{user.id}", user.id] }
       f.input :status, as: :select, collection: ['pending', 'completed', 'shipped']
       f.input :total_price
-      f.input :products, as: :select, multiple: true, collection: Product.all.map { |product| [product.name, product.id] }
     end
     f.actions
   end

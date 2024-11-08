@@ -2,7 +2,7 @@ ActiveAdmin.register OrderItem do
   permit_params :order_id, :product_id, :quantity, :unit_price
 
   # Specify the filters you want
-  filter :order
+  filter :order, as: :select, collection: Order.all.map { |order| ["#{order.id}", order.id] }
   filter :product
   filter :quantity
   filter :unit_price
