@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   # Signup route
   get '/signup', to: 'signup#index', as: :signup
+  post '/signup', to: 'users#create'
 end

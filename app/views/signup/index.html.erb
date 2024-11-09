@@ -1,12 +1,12 @@
 <div class="container py-2 has-background-light signup-container">
   <h1 class="title has-text-centered is-4 has-text-black pt-4">Sign Up</h1>
-  <form action="/signup" method="post" enctype="multipart/form-data">
+  <%= form_with model: @user, url: signup_path, method: :post, local: true, html: { enctype: "multipart/form-data" } do |f| %>
     <div class="box has-background-light">
       <!-- First Name -->
       <div class="field">
         <label class="label has-text-black">First Name</label>
         <div class="control">
-          <input class="input has-background-white has-text-black" type="text" name="first_name" placeholder="Enter your first name" required>
+          <%= f.text_field :first_name, class: "input has-background-white has-text-black", placeholder: "Enter your first name", required: true %>
         </div>
       </div>
 
@@ -14,7 +14,7 @@
       <div class="field">
         <label class="label has-text-black">Last Name</label>
         <div class="control">
-          <input class="input has-background-white" type="text" name="last_name" placeholder="Enter your last name" required>
+          <%= f.text_field :last_name, class: "input has-background-white has-text-black", placeholder: "Enter your last name", required: true %>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
       <div class="field">
         <label class="label has-text-black">Email</label>
         <div class="control">
-          <input class="input has-background-white" type="email" name="email" placeholder="Enter your email" required>
+          <%= f.email_field :email, class: "input has-background-white has-text-black", placeholder: "Enter your email", required: true %>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
       <div class="field">
         <label class="label has-text-black">Password</label>
         <div class="control">
-          <input class="input has-background-white" type="password" name="password" placeholder="Enter your password" required>
+          <%= f.password_field :password, class: "input has-background-white has-text-black", placeholder: "Enter your password", required: true %>
         </div>
       </div>
 
@@ -38,16 +38,17 @@
       <div class="field">
         <label class="label has-text-black">Confirm Password</label>
         <div class="control">
-          <input class="input has-background-white" type="password" name="password_confirmation" placeholder="Re-enter your password" required>
+          <%= f.password_field :password_confirmation, class: "input has-background-white has-text-black", placeholder: "Re-enter your password", required: true %>
         </div>
       </div>
 
       <!-- Submit Button -->
       <div class="field is-grouped is-justify-content-center mt-6">
         <div class="control">
-          <button type="submit" class="button is-primary">Sign Up</button>
+          <%= f.submit "Sign Up", class: "button is-primary" %>
         </div>
       </div>
     </div>
-  </form>
+  <% end %>
 </div>
+
