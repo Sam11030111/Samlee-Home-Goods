@@ -1,0 +1,29 @@
+<div class="container mt-6 has-background-light signup-container">
+  <h1 class="title has-text-centered is-4 has-text-black pt-4">Login</h1>
+  <%= form_with model: @user, url: signup_path, method: :post, local: true, html: { enctype: "multipart/form-data" } do |f| %>
+    <div class="box has-background-light">
+      <!-- Email -->
+      <div class="field">
+        <label class="label has-text-black">Email</label>
+        <div class="control">
+          <%= f.email_field :email, class: "input has-background-white has-text-black", placeholder: "Enter your email", required: true %>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="label has-text-black">Password</label>
+        <div class="control">
+          <%= f.password_field :password, class: "input has-background-white has-text-black", placeholder: "Enter your password", required: true %>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="field is-grouped is-justify-content-center mt-6">
+        <div class="control">
+          <%= f.submit "Login", class: "button is-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

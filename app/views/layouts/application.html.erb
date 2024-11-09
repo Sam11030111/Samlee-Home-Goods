@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="<%= asset_path 'products.css' %>" media="all">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <%= javascript_importmap_tags %>
   </head>
 
@@ -23,5 +24,28 @@
     <%= yield %>
 
     <%= javascript_include_tag 'main' %>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+      <% if flash[:notice] %>
+        Toastify({
+          text: "<%= flash[:notice] %>",
+          duration: 3000,
+          close: true,
+          gravity: "bottom",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            borderRadius: "20px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+          },
+        }).showToast();
+      <% end %>
+    </script>
   </body>
 </html>
+

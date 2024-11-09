@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   # Signup route
   get '/signup', to: 'signup#index', as: :signup
   post '/signup', to: 'users#create'
+
+  # Login route
+  get '/login', to: 'login#index', as: :login
 end

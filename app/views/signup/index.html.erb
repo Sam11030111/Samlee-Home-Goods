@@ -1,4 +1,4 @@
-<div class="container py-2 has-background-light signup-container">
+<div class="container mt-6 has-background-light signup-container">
   <h1 class="title has-text-centered is-4 has-text-black pt-4">Sign Up</h1>
   <%= form_with model: @user, url: signup_path, method: :post, local: true, html: { enctype: "multipart/form-data" } do |f| %>
     <div class="box has-background-light">
@@ -41,6 +41,11 @@
           <%= f.password_field :password_confirmation, class: "input has-background-white has-text-black", placeholder: "Re-enter your password", required: true %>
         </div>
       </div>
+
+      <!-- Show Flash Error -->
+        <% if flash[:alert].present? %>
+          <p class="has-text-danger	"><%= flash[:alert] %></p>
+      <% end %>
 
       <!-- Submit Button -->
       <div class="field is-grouped is-justify-content-center mt-6">
