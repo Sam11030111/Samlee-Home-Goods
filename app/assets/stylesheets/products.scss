@@ -110,3 +110,15 @@ body {
     width: 40px;
     height: 40px;
 }
+
+// input
+.input::placeholder {
+    color: black;
+    opacity: 0.6; 
+}
+
+.signup-container {
+    max-width: 500px !important;
+    margin: auto !important;
+    border-radius: 10px;
+}

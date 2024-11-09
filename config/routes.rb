@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 
   # Dogs route
   resources :products, only: [:index, :show]
+
+  # Signup route
+  get '/signup', to: 'signup#index', as: :signup
 end
