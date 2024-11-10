@@ -42,9 +42,13 @@
         </div>
       </div>
 
-      <!-- Show Flash Error -->
-        <% if flash[:alert].present? %>
-          <p class="has-text-danger	"><%= flash[:alert] %></p>
+      <!-- Show Error -->
+      <% if @user.errors.any? %>
+        <div class="has-text-danger">
+          <% @user.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        </div>
       <% end %>
 
       <!-- Submit Button -->

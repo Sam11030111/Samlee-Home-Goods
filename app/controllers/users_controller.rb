@@ -6,9 +6,8 @@ class UsersController < ApplicationController
         Rails.logger.info "🟡Flash notice set: #{flash[:notice]}"
         redirect_to login_path
       else
-        flash[:alert] = @user.errors.full_messages.join(', ')
-        Rails.logger.info "🔴Flash alert set: #{flash[:alert]}"
-        redirect_to signup_path
+        puts "🔴 Errors: #{@user.errors.full_messages}"
+        render "signup/index", status: :unprocessable_entity, content_type: "text/html"
       end
     end
   
