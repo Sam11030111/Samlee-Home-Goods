@@ -123,3 +123,10 @@ body {
     margin-right: auto !important;
     border-radius: 10px;
 }
+
+.tabs {
+    --bulma-tabs-link-active-color: hsl(171, 100%, 41%);
+    --bulma-tabs-link-active-border-bottom-color: hsl(171, 100%, 41%);
+    --bulma-tabs-link-hover-color: hsl(171, 100%, 41%);
+    --bulma-tabs-link-hover-border-bottom-color: hsl(171, 100%, 41%);
+}
