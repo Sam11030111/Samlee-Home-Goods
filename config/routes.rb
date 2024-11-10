@@ -19,8 +19,12 @@ Rails.application.routes.draw do
 
   # Signup route
   get '/signup', to: 'signup#index', as: :signup
-  post '/signup', to: 'users#create'
+  post '/signup', to: 'signup#create'
 
   # Login route
   get '/login', to: 'login#index', as: :login
+  post '/login', to: 'login#create'
+
+  # Logout route
+  delete '/logout', to: 'sessions#destroy', as: :logout
 end

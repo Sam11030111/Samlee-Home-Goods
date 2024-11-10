@@ -23,12 +23,17 @@
   <div class="navbar-end">
     <div class="navbar-item">
       <div class="buttons">
+      <% if logged_in? %>
+        <span class="navbar-item has-text-white">Welcome, <%= current_user.first_name %> <%= current_user.last_name %></span>
+        <%= button_to 'Logout', logout_path, method: :delete, class: "button is-danger has-text-white" %>
+      <% else %>
         <a class="button is-primary" href="/signup">
           <strong>Sign up</strong>
         </a>
         <a class="button is-light" href="/login">
           Login
         </a>
+      <% end %>
       </div>
     </div>
   </div>
