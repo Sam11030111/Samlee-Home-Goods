@@ -130,3 +130,7 @@ body {
     --bulma-tabs-link-hover-color: hsl(171, 100%, 41%);
     --bulma-tabs-link-hover-border-bottom-color: hsl(171, 100%, 41%);
 }
+
+.search-placeholder::placeholder {
+    color: hsl(0, 0%, 48%);
+}

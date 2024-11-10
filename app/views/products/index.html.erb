@@ -2,16 +2,19 @@
   <div class="tabs is-right">
     <ul>
       <li class="<%= 'is-active' unless params[:category_id] %>">
-        <%= link_to 'All', products_path %>
+        <%= link_to 'All', products_path(query: params[:query]) %>
       </li>
       <% Category.all.each do |category| %>
         <li class="<%= 'is-active' if params[:category_id].to_i == category.id %>">
-          <%= link_to category.name, products_path(category_id: category.id) %>
+          <%= link_to category.name, products_path(category_id: category.id, query: params[:query]) %>
         </li>
       <% end %>
     </ul>
   </div>
   <h1 class="mb-4 has-text-black is-size-1">All Products</h1>
+  <nav class="is-flex is-justify-content-flex-end pagination-nav">
+    <%= render 'share/pagination', collection: @products %>
+  </nav>
   <% if @products.any? %>
     <div class="grid is-gap-6 product-grid">
       <% @products.each do |product| %>

@@ -1,0 +1,63 @@
+<div class="pagination is-centered" role="navigation" aria-label="pagination">
+  <% if collection.total_pages > 1 %>
+    <!-- Previous Button -->
+    <% if collection.current_page > 1 %>
+      <%= link_to 'Previous', url_for(params.permit(:category_id).merge(page: collection.prev_page)), class: 'pagination-previous' %>
+    <% end %>
+
+    <!-- Next Button -->
+    <% if collection.current_page < collection.total_pages %>
+      <%= link_to 'Next page', url_for(params.permit(:category_id).merge(page: collection.next_page)), class: 'pagination-next' %>
+    <% end %>
+
+    <ul class="pagination-list">
+      <!-- First page link -->
+      <% if collection.current_page > 1 %>
+        <li>
+          <%= link_to 1, url_for(params.permit(:category_id).merge(page: 1)), class: 'pagination-link' %>
+        </li>
+      <% end %>
+
+      <!-- Ellipsis for skipped pages -->
+      <% if collection.current_page > 3 && collection.total_pages > 3 %>
+        <li>
+          <span class="pagination-ellipsis has-text-black">&hellip;</span>
+        </li>
+      <% end %>
+
+      <!-- Page links before current page -->
+      <% (collection.current_page - 1).downto([collection.current_page - 2, 2].max).each do |page| %>
+        <li>
+          <%= link_to page, url_for(params.permit(:category_id).merge(page: page)), class: 'pagination-link' %>
+        </li>
+      <% end %>
+
+      <!-- Current page -->
+      <li>
+        <a class="pagination-link is-current" aria-label="Page <%= collection.current_page %>" aria-current="page"><%= collection.current_page %></a>
+      </li>
+
+      <!-- Page links after current page -->
+      <% (collection.current_page + 1).upto([collection.current_page + 2, collection.total_pages - 1].min).each do |page| %>
+        <li>
+          <%= link_to page, url_for(params.permit(:category_id).merge(page: page)), class: 'pagination-link' %>
+        </li>
+      <% end %>
+
+      <!-- Ellipsis for skipped pages -->
+      <% if collection.current_page < collection.total_pages - 2 %>
+        <li>
+          <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+      <% end %>
+
+      <!-- Last page link -->
+      <% if collection.current_page < collection.total_pages %>
+        <li>
+          <%= link_to collection.total_pages, url_for(params.permit(:category_id).merge(page: collection.total_pages)), class: 'pagination-link' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
