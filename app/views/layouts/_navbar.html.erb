@@ -18,13 +18,28 @@
       <!-- Search Form -->
       <%= form_with url: products_path, method: :get, local: true do %>
         <div class="field is-grouped navbar-item">
-          <div class="control">
-            <input class="input search-placeholder" type="text" name="query" placeholder="Search Products" value="<%= params[:query] %>">
+          <div class="control has-icons-right" style="position: relative;">
+            <input
+              class="input search-placeholder"
+              type="text"
+              name="query"
+              placeholder="Search Products"
+              value="<%= params[:query] %>"
+              id="search-input"
+            >
+            <button
+              type="button"
+              id="clear-search"
+              class="delete"
+              style="position: absolute; right: 10px; top: 10px;"
+              aria-label="Clear search"
+            ></button>
           </div>
           <div class="control">
             <button type="submit" class="button is-primary">Search</button>
           </div>
 
+          <!-- Hidden field for category if present -->
           <% if params[:category_id].present? %>
             <%= hidden_field_tag :category_id, params[:category_id] %>
           <% end %>
