@@ -3,13 +3,14 @@ class User < ApplicationRecord
   has_secure_password
 
   # Validations
-  validates :first_name, :last_name, :email, :password, presence: true
+  validates :first_name, :last_name, :email, :password, :street, :city, :postal_code, :province, presence: true
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 6 }, if: -> { password.present? }
   validates :isAdmin, inclusion: { in: [true, false] }
 
   # Associations
   has_one_attached :image
+  belongs_to :province
   has_many :orders
   has_many :reviews
   

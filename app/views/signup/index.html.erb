@@ -1,63 +1,77 @@
-<div class="container mt-6 has-background-light signup-container">
-  <h1 class="title has-text-centered is-4 has-text-black pt-4">Sign Up</h1>
-  <%= form_with model: @user, url: signup_path, method: :post, local: true, html: { enctype: "multipart/form-data" } do |f| %>
+<div class="container mt-6 mb-6 signup-container">
+  <%= render 'share/breadcrumb'%>
+  <h1 class="title is-4 has-text-black pt-4">Sign Up - Step 1</h1>
+  <%= form_with model: @user, url: signup_step1_path, method: :post, local: true do |f| %>
     <div class="box has-background-light">
       <!-- First Name -->
       <div class="field">
         <label class="label has-text-black">First Name</label>
         <div class="control">
-          <%= f.text_field :first_name, class: "input has-background-white has-text-black", placeholder: "Enter your first name", required: true %>
+          <%= f.text_field :first_name, value: session[:user_params] && session[:user_params]["first_name"] || @user.first_name, class: "input has-background-white has-text-black", placeholder: "Enter your first name" %>
         </div>
       </div>
-
+  
       <!-- Last Name -->
       <div class="field">
         <label class="label has-text-black">Last Name</label>
         <div class="control">
-          <%= f.text_field :last_name, class: "input has-background-white has-text-black", placeholder: "Enter your last name", required: true %>
+          <%= f.text_field :last_name, value: session[:user_params] && session[:user_params]["last_name"] || @user.last_name, class: "input has-background-white has-text-black", placeholder: "Enter your last name" %>
         </div>
       </div>
-
-      <!-- Email -->
+  
+      <!-- Street -->
       <div class="field">
-        <label class="label has-text-black">Email</label>
+        <label class="label has-text-black">Street</label>
         <div class="control">
-          <%= f.email_field :email, class: "input has-background-white has-text-black", placeholder: "Enter your email", required: true %>
+          <%= f.text_field :street, value: session[:user_params] && session[:user_params]["street"] || @user.street, class: "input has-background-white has-text-black", placeholder: "Enter your street" %>
         </div>
       </div>
-
-      <!-- Password -->
+  
+      <!-- City -->
       <div class="field">
-        <label class="label has-text-black">Password</label>
+        <label class="label has-text-black">City</label>
         <div class="control">
-          <%= f.password_field :password, class: "input has-background-white has-text-black", placeholder: "Enter your password", required: true %>
+          <%= f.text_field :city, value: session[:user_params] && session[:user_params]["city"] || @user.city, class: "input has-background-white has-text-black", placeholder: "Enter your city" %>
         </div>
       </div>
-
-      <!-- Confirm Password -->
+  
+      <!-- Postal Code -->
       <div class="field">
-        <label class="label has-text-black">Confirm Password</label>
+        <label class="label has-text-black">Postal Code</label>
         <div class="control">
-          <%= f.password_field :password_confirmation, class: "input has-background-white has-text-black", placeholder: "Re-enter your password", required: true %>
+          <%= f.text_field :postal_code, value: session[:user_params] && session[:user_params]["postal_code"] || @user.postal_code, class: "input has-background-white has-text-black", placeholder: "Enter your postal code" %>
         </div>
       </div>
-
+  
+      <!-- Province -->
+      <div class="field">
+        <label class="label has-text-black">Province</label>
+        <div class="control select">
+          <%= f.select :province_id, 
+              Province.all.collect { |p| [p.name, p.id] }, 
+              { prompt: 'Select Province', selected: session[:user_params] && session[:user_params]["province_id"] || @user.province_id }, 
+              class: "has-background-white has-text-black" %>
+        </div>
+      </div>
+  
       <!-- Show Error -->
       <% if @user.errors.any? %>
-        <div class="has-text-danger">
+        <div class="has-text-danger mt-4">
           <% @user.errors.full_messages.each do |message| %>
-            <p><%= message %></p>
+            <% unless message.include?("Email") || message.include?("Password") %>
+              <p><%= message %></p>
+            <% end %>
           <% end %>
         </div>
       <% end %>
-
-      <!-- Submit Button -->
+  
+      <!-- Next Button -->
       <div class="field is-grouped is-justify-content-center mt-6">
         <div class="control">
-          <%= f.submit "Sign Up", class: "button is-primary" %>
+          <%= f.submit "Next", class: "button is-primary" %>
         </div>
       </div>
     </div>
-  <% end %>
+  <% end %>  
 </div>
 

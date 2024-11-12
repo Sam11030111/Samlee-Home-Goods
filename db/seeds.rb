@@ -8,6 +8,28 @@ Review.destroy_all
 Product.destroy_all
 Category.destroy_all
 User.destroy_all
+Province.destroy_all
+
+# Create Provinces with name (including abbreviation)
+provinces_data = [
+  "Newfoundland and Labrador (NL)",
+  "Prince Edward Island (PE)",
+  "Nova Scotia (NS)",
+  "New Brunswick (NB)",
+  "Quebec (QC)",
+  "Ontario (ON)",
+  "Manitoba (MB)",
+  "Saskatchewan (SK)",
+  "Alberta (AB)",
+  "British Columbia (BC)",
+  "Yukon (YT)",
+  "Northwest Territories (NT)",
+  "Nunavut (NU)"
+]
+
+provinces = provinces_data.map do |province_name|
+  Province.create!(name: province_name)
+end
 
 # Create categories from Fake Store API
 categories_data = JSON.parse(URI.open('https://fakestoreapi.com/products').read).map { |product| product['category'] }.uniq
@@ -16,12 +38,19 @@ categories = categories_data.map { |category_name| Category.create!(name: catego
 # Create users
 users = []
 5.times do
+  # Randomly pick a province from the provinces list
+  province = provinces.sample
+
   users << User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.unique.email,
     password: 'password',
-    isAdmin: [true, false].sample
+    isAdmin: [true, false].sample,
+    province: province,  # Assign a random province from the provinces list
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    postal_code: Faker::Address.zip_code
   )
 end
 

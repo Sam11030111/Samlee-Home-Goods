@@ -1,0 +1,13 @@
+<nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="<%= signup_path %>">Sign Up</a></li>
+    
+    <% if @current_step == 2 %>
+      <li><a href="<%= signup_path %>">Step 1</a></li>
+      <li class="is-active"><a href="<%= signup_step2_path %>" aria-current="page">Step 2</a></li>
+    <% else %>
+      <li class="is-active"><a href="<%= signup_path %>" aria-current="page">Step 1</a></li>
+    <% end %>
+  </ul>
+</nav>
+

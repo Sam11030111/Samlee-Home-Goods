@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :first_name, :last_name, :email, :password, :isAdmin, :image
+  permit_params :first_name, :last_name, :email, :password, :isAdmin, :image, :street, :city, :postal_code, :province_id
 
   # Specify the filters you want
   filter :first_name
@@ -15,6 +15,10 @@ ActiveAdmin.register User do
     column :last_name
     column :email
     column :isAdmin
+    column :street
+    column :city
+    column :postal_code
+    column :province
     column :image do |user|
       if user.image.attached?
         image_tag(url_for(user.image), size: "50x50") # Display a small thumbnail
@@ -32,6 +36,10 @@ ActiveAdmin.register User do
       f.input :password
       f.input :isAdmin
       f.input :image, as: :file
+      f.input :street
+      f.input :city
+      f.input :postal_code
+      f.input :province
     end
     f.actions
   end
@@ -42,6 +50,10 @@ ActiveAdmin.register User do
       row :last_name
       row :email
       row :isAdmin
+      row :street
+      row :city
+      row :postal_code
+      row :province
       row :image do |user|
         if user.image.attached?
           image_tag(url_for(user.image), size: "100x100")

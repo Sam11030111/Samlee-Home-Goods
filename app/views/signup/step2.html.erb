@@ -1,0 +1,47 @@
+<div class="container mt-6 mb-6 signup-container">
+  <%= render 'share/breadcrumb'%>
+  <h1 class="title is-4 has-text-black pt-4">Sign Up - Step 2</h1>
+  <%= form_with model: @user, url: signup_path, method: :post, local: true do |f| %>
+    <div class="box has-background-light">
+      <!-- Email -->
+      <div class="field">
+        <label class="label has-text-black">Email</label>
+        <div class="control">
+          <%= f.email_field :email, class: "input has-background-white has-text-black", placeholder: "Enter your email" %>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="label has-text-black">Password</label>
+        <div class="control">
+          <%= f.password_field :password, class: "input has-background-white has-text-black", placeholder: "Enter your password" %>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label class="label has-text-black">Confirm Password</label>
+        <div class="control">
+          <%= f.password_field :password_confirmation, class: "input has-background-white has-text-black", placeholder: "Re-enter your password" %>
+        </div>
+      </div>
+
+      <!-- Show Error -->
+      <% if @user.errors.any? %>
+        <div class="has-text-danger">
+          <% @user.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Sign Up Button -->
+      <div class="field is-grouped is-justify-content-center mt-6">
+        <div class="control">
+          <%= f.submit "Sign Up", class: "button is-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
