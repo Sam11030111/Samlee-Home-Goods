@@ -14,8 +14,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'products#index'
 
-  # Dogs route
-  resources :products, only: [:index, :show]
+  # Products route
+  resources :products, only: [:index, :show] do
+    post 'add_to_cart', on: :member # POST route for adding to cart
+  end
+
+  # Cart route
+  get '/cart', to: 'cart#index', as: :cart
 
   # Signup route
   get '/signup', to: 'signup#index', as: :signup

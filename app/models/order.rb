@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 
   # Associations
   belongs_to :user
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
   def self.ransackable_associations(auth_object = nil)

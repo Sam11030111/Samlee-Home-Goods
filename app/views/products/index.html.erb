@@ -11,10 +11,38 @@
       <% end %>
     </ul>
   </div>
-  <h1 class="mb-4 has-text-black is-size-1">All Products</h1>
-  <nav class="is-flex is-justify-content-flex-end pagination-nav">
-    <%= render 'share/pagination', collection: @products %>
-  </nav>
+  <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between is-align-items-center mb-6">
+    <h1 class="has-text-black is-size-1">All Products</h1>
+    <%= form_with url: products_path, method: :get, local: true do %>
+      <div class="field is-grouped navbar-item">
+        <div class="control has-icons-right" style="position: relative;">
+          <input
+            class="input search-placeholder has-background-white has-text-black"
+            type="text"
+            name="query"
+            placeholder="Search Products"
+            value="<%= params[:query] %>"
+            id="search-input"
+          >
+          <button
+            type="button"
+            id="clear-search"
+            class="delete"
+            style="position: absolute; right: 10px; top: 10px;"
+            aria-label="Clear search"
+          ></button>
+        </div>
+        <div class="control">
+          <button type="submit" class="button is-primary">Search</button>
+        </div>
+
+        <!-- Hidden field for category if present -->
+        <% if params[:category_id].present? %>
+          <%= hidden_field_tag :category_id, params[:category_id] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <% if @products.any? %>
     <div class="grid is-gap-6 product-grid">
       <% @products.each do |product| %>
@@ -26,4 +54,8 @@
   <% else %>
     <p>There are no products now.</p>
   <% end %>
+
+  <nav class="is-flex is-justify-content-flex-end pagination-nav">
+    <%= render 'share/pagination', collection: @products %>
+  </nav>
 </div>
