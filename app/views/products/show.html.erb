@@ -22,21 +22,30 @@
         <p class="is-italic has-text-grey"><strong class="has-text-black">Category:</strong> <%= @product.category.name %></p>
 
         <!-- Stock Label and Dropdown -->
-        <%= form_with url: add_to_cart_product_path(@product), method: :post, local: true do |form| %>
-          <div class="field mb-4">
-            <label class="label <%= @product.stock > 0 ? 'has-text-black' : 'has-text-danger' %>">
-              <%= @product.stock > 0 ? "In Stock" : "Out of Stock" %>
-            </label>
+        <% if logged_in? %>
+          <%= form_with url: add_to_cart_product_path(@product), method: :post, local: true do |form| %>
+            <div class="field mb-4">
+              <label class="label <%= @product.stock > 0 ? 'has-text-black' : 'has-text-danger' %>">
+                <%= @product.stock > 0 ? "In Stock" : "Out of Stock" %>
+              </label>
+              <% if @product.stock > 0 %>
+                <div class="control select">
+                  <%= form.select :quantity, (1..@product.stock).to_a, { prompt: 'Select Quantity' }, class: 'has-background-white has-text-black' %>
+                </div>
+              <% end %>
+            </div>
             <% if @product.stock > 0 %>
-              <div class="control select">
-                <%= form.select :quantity, (1..@product.stock).to_a, { prompt: 'Select Quantity' }, class: 'has-background-white has-text-black' %>
-              </div>
+              <%= form.hidden_field :unit_price, value: @product.price %>
+              <button class="button is-primary">Add to Cart</button>
             <% end %>
-          </div>
-          <% if @product.stock > 0 %>
-            <%= form.hidden_field :unit_price, value: @product.price %>
-            <button class="button is-primary">Add to Cart</button>
           <% end %>
+        <% else %>
+          <p class="is-italic has-text-grey">
+            <strong class="<%= @product.stock > 0 ? 'has-text-black' : 'has-text-danger' %>">
+              <%= @product.stock > 0 ? "In Stock:" : "Out of Stock" %>
+            </strong> 
+            <%= @product.stock > 0 ? @product.stock : "" %>
+          </p>
         <% end %>
       </div>
     </div>

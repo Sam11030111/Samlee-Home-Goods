@@ -18,7 +18,9 @@
 
               <!-- Product Details -->
               <div class="media-content">
-                <h2 class="has-text-black is-size-4 mb-2"><%= item.product.name %></h2>
+                <h2 class="has-text-black is-size-4 mb-2">
+                    <%= link_to item.product.name, product_path(item.product), class: "has-text-black" %>
+                </h2>
                 <p class="has-text-grey">Price: $<%= item.unit_price %></p>
                 <p class="has-text-grey">Quantity: <%= item.quantity %></p>
 

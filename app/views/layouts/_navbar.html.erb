@@ -14,7 +14,9 @@
   <div id="navbarExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item <%= active_class('/') %>" href="/"> Products </a>
-      <a class="navbar-item <%= active_class('/cart') %>" href="/cart"> Cart </a>
+      <% if logged_in? %>
+        <a class="navbar-item <%= active_class('/cart') %>" href="/cart"> Cart </a>
+      <% end %>
     </div>
   </div>
 
