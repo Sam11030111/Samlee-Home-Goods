@@ -25,17 +25,16 @@
                 <p class="has-text-grey">Quantity: <%= item.quantity %></p>
 
                 <div class="is-flex is-align-items-center mt-3">
-                    <div class="is-flex is-justify-content-space-between is-align-items-center mr-3" style="width: 100px; border: 1px solid #ffdd57; border-radius: 5px;">
-                        <button class="button is-small is-warning">
-                            <span class="icon">-</span>
-                        </button>
-                        <strong class="has-text-black"><%= item.quantity %></strong>
-                        <button class="button is-small is-warning">
-                            <span class="icon is-small">+</span>
-                        </button>
-                    </div>
-
-                    <button class="has-text-danger" style="border-left: 1px solid #e5e5e5; padding-left: 10px;">Delete</button>
+                    <%= form_with url: update_quantity_cart_path(item), method: :patch, local: true do |form| %>
+                        <div class="is-flex is-align-items-center">
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mr-3" style="width: 100px; border: 1px solid #ffdd57; border-radius: 5px;">
+                                <%= button_tag '-', class: 'button is-small is-warning', name: 'button_action', value: 'decrease' %>
+                                <strong class="has-text-black"><%= item.quantity %></strong>
+                                <%= button_tag '+', class: 'button is-small is-warning', name: 'button_action', value: 'increase' %>
+                            </div>
+                            <%= button_tag 'Delete', class: 'has-text-danger', style: 'border-left: 1px solid #e5e5e5; padding-left: 10px;', name: 'button_action', value: 'clear' %>
+                        </div>
+                    <% end %>
                 </div>
               </div>
             </div>
@@ -52,7 +51,11 @@
           Subtotal (<%= @order_items.sum(&:quantity) %> items): 
           <strong class="has-text-black">$<%= @order&.total_price || 0 %></strong>
         </h2>
-        <button class="button is-warning">Proceed to Checkout</button>
+        <% if @order&.total_price.to_f == 0 %>
+            <p class="has-text-grey">No items in the cart.</p>
+        <% else %>
+            <button class="button is-warning">Proceed to Checkout</button>
+        <% end %>
       </div>
     </div>
   </div>

@@ -21,6 +21,11 @@ Rails.application.routes.draw do
 
   # Cart route
   get '/cart', to: 'cart#index', as: :cart
+  resources :cart, only: [:index] do
+    member do
+      patch :update_quantity
+    end
+  end
 
   # Signup route
   get '/signup', to: 'signup#index', as: :signup
