@@ -1,1 +1,57 @@
-<h1>Cart</h1>
+<div class="container p-6">
+  <h1 class="has-text-black is-size-1 mb-6">Shopping Cart</h1>
+
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <% if @order_items.any? %>
+        <% @order_items.each do |item| %>
+          <div class="mb-4 pb-4" style="border-bottom: 1px solid #e5e5e5;">
+            <div class="media">
+              <!-- Product Image -->
+              <figure class="media-left">
+                <% if item.product.image.attached? %>
+                  <p class="image is-square is-64x64 mt-1">
+                    <img src="<%= url_for(item.product.image) %>" class="product-cart-image" alt="Product Image">
+                  </p>
+                <% end %>
+              </figure>
+
+              <!-- Product Details -->
+              <div class="media-content">
+                <h2 class="has-text-black is-size-4 mb-2"><%= item.product.name %></h2>
+                <p class="has-text-grey">Price: $<%= item.unit_price %></p>
+                <p class="has-text-grey">Quantity: <%= item.quantity %></p>
+
+                <div class="is-flex is-align-items-center mt-3">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center mr-3" style="width: 100px; border: 1px solid #ffdd57; border-radius: 5px;">
+                        <button class="button is-small is-warning">
+                            <span class="icon">-</span>
+                        </button>
+                        <strong class="has-text-black"><%= item.quantity %></strong>
+                        <button class="button is-small is-warning">
+                            <span class="icon is-small">+</span>
+                        </button>
+                    </div>
+
+                    <button class="has-text-danger" style="border-left: 1px solid #e5e5e5; padding-left: 10px;">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>Your cart is currently empty.</p>
+      <% end %>
+    </div>
+
+    <div class="column is-one-third">
+      <div class="box has-background-light">
+        <h2 class="has-text-black is-size-5 mb-2">
+          Subtotal (<%= @order_items.sum(&:quantity) %> items): 
+          <strong class="has-text-black">$<%= @order&.total_price || 0 %></strong>
+        </h2>
+        <button class="button is-warning">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,8 @@ class ProductsController < ApplicationController
     # Find or initialize order_item with the specified product
     order_item = @order.order_items.find_or_initialize_by(product: @product)
     
+    # Update unit_price with the current product price and update quantity
+    order_item.unit_price = @product.price
     # If the item already exists in the cart, add to the existing quantity
     if order_item.persisted?
       order_item.quantity += params[:quantity].to_i
