@@ -29,6 +29,12 @@ Rails.application.routes.draw do
 
   # Checkout route
   get '/checkout', to: 'checkout#index', as: :checkout
+  resources :checkout, only: [:index] do
+    post :checkout, on: :collection, as: :place_order
+  end  
+
+  # Order route
+  get '/orders', to: 'orders#index', as: :orders
 
   # Signup route
   get '/signup', to: 'signup#index', as: :signup

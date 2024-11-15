@@ -94,9 +94,8 @@
 
     <div class="column is-one-third">
       <div class="box has-background-light">
-        <h2 class="has-text-black is-size-5 mb-2">Order Summary</h2>
-        <p class="mb-2"><strong class="has-text-black">Order Total: $<%= @order&.total_price || 0 %></strong></p>
-        <button class="button is-warning">Place Order</button>
+        <h2 class="mb-2 is-size-5"><strong class="has-text-black">Order Total: $<%= @order&.total_price || 0 %></strong></h2>
+        <%= button_to 'Place Order', place_order_checkout_index_path, method: :post, class: 'button is-warning' %>
       </div>
     </div>
   </div>
