@@ -27,6 +27,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Checkout route
+  get '/checkout', to: 'checkout#index', as: :checkout
+
   # Signup route
   get '/signup', to: 'signup#index', as: :signup
   post '/signup/step1', to: 'signup#step1'

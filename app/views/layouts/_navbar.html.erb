@@ -16,6 +16,7 @@
       <a class="navbar-item <%= active_class('/') %>" href="/"> Products </a>
       <% if logged_in? %>
         <a class="navbar-item <%= active_class('/cart') %>" href="/cart"> Cart </a>
+        <a class="navbar-item <%= active_class('/orders') %>" href="/orders"> Orders </a>
       <% end %>
     </div>
   </div>

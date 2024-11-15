@@ -34,10 +34,16 @@ class CartController < ApplicationController
         if total_price == 0
             order_item.order.destroy
             puts "🗑️ Order deleted as total price is 0!"
+            redirect_to cart_path and return
         else
             order_item.order.update(total_price: total_price)
         end
 
-        redirect_to cart_path
+         # Redirect based on source
+        if params[:source] == 'checkout'
+            redirect_to checkout_path
+        else
+            redirect_to cart_path
+        end
     end
 end

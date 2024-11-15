@@ -1,0 +1,62 @@
+.credit-card {
+    background-color: #171a1c;
+    border-radius: 14px;
+    padding: 30px;
+    color: #bebebe;
+    max-width: 460px;
+}
+
+.header {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: #fff;
+    font-size: 25px;
+}
+
+.card-number input {
+    outline: none;
+}
+
+.card-number input::placeholder {
+    color: #bebebe;
+}
+
+input {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+.card-input {
+    font-size: 32px;
+    width: 100%;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card-expire {
+    display: flex;
+    gap: 10px;
+}
+
+.card-expire-month, .card-expire-year, .card-cvv {
+    width: 70px;
+}
+
+.card-expire-month input, .card-expire-year input, .card-cvv input {
+    width: 100%;
+}

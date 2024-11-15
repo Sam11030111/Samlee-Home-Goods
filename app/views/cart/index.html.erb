@@ -54,7 +54,7 @@
         <% if @order&.total_price.to_f == 0 %>
             <p class="has-text-grey">No items in the cart.</p>
         <% else %>
-            <button class="button is-warning">Proceed to Checkout</button>
+            <%= link_to "Proceed to Checkout", checkout_path, class: "button is-warning has-text-black" %>
         <% end %>
       </div>
     </div>

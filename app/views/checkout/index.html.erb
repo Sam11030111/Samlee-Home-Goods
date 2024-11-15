@@ -1,0 +1,103 @@
+<div class="container p-6">
+  <h1 class="has-text-black is-size-1 mb-6">Checkout</h1>
+
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <div class="mb-6 pb-6" style="border-bottom: 1px solid #e5e5e5;">
+        <h2 class="has-text-black is-size-4 mb-4">User Information</h2>
+        <p class="has-text-black"><%= @user.last_name %>, <%= @user.first_name %></p>
+        <p class="has-text-black"><%= @user.street %>, <%= @user.city %>, <%= @user.province.name %>, <%= @user.postal_code %></p>
+      </div>
+
+      <div class="mb-6 pb-6" style="border-bottom: 1px solid #e5e5e5;">
+        <h2 class="has-text-black is-size-4 mb-4">Payment Information</h2>
+        <div class="credit-card">
+          <div class="header">
+            <h3 class="title">Payment Details</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" class="logo" width="140" height="43" viewBox="0 0 175.7 53.9">
+              <style>
+                .visa {
+                  fill: #fff;
+                }
+              </style>
+              <path class="visa" d="M61.9 53.1l8.9-52.2h14.2l-8.9 52.2zm65.8-50.9c-2.8-1.1-7.2-2.2-12.7-2.2-14.1 0-24 7.1-24 17.2-.1 7.5 7.1 11.7 12.5 14.2 5.5 2.6 7.4 4.2 7.4 6.5 0 3.5-4.4 5.1-8.5 5.1-5.7 0-8.7-.8-13.4-2.7l-2-.9-2 11.7c3.3 1.5 9.5 2.7 15.9 2.8 15 0 24.7-7 24.8-17.8.1-5.9-3.7-10.5-11.9-14.2-5-2.4-8-4-8-6.5 0-2.2 2.6-4.5 8.1-4.5 4.7-.1 8 .9 10.6 2l1.3.6 1.9-11.3M164.2 1h-11c-3.4 0-6 .9-7.5 4.3l-21.1 47.8h14.9s2.4-6.4 3-7.8h18.2c.4 1.8 1.7 7.8 1.7 7.8h13.2l-11.4-52.1m-17.5 33.6c1.2-3 5.7-14.6 5.7-14.6-.1.1 1.2-3 1.9-5l1 4.5s2.7 12.5 3.3 15.1h-11.9zm-96.7-33.7l-14 35.6-1.5-7.2c-2.5-8.3-10.6-17.4-19.6-21.9l12.7 45.7h15.1l22.4-52.2h-15.1"/>
+              <path fill="#F7A600" d="M23.1.9h-22.9l-.2 1.1c17.9 4.3 29.7 14.8 34.6 27.3l-5-24c-.9-3.3-3.4-4.3-6.5-4.4" />
+            </svg>
+          </div>
+
+          <div class="card-number mb-5">
+            <label class="has-text-white has-text-weight-bold">Card Number</label>
+            <input type="text" class="card-input is-size-5" placeholder="Card Number" maxlength="19">
+          </div>
+
+          <div class="info">
+            <div class="card-expire">
+                <div class="card-expire-month">
+                    <label class="has-text-white has-text-weight-bold">Month</label>
+                    <input type="text" placeholder="MM" maxlength="2">
+                </div>
+                <div class="card-expire-year">
+                    <label class="has-text-white has-text-weight-bold">Year</label>
+                    <input type="text" placeholder="YYYY" maxlength="4">
+                </div>
+            </div>
+
+            <div class="card-cvv">
+                <label class="has-text-white has-text-weight-bold">CVV</label>
+                <input type="text" placeholder="CVV" maxlength="3">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="has-text-black is-size-4 mb-4">Product Information</h2>
+        <% @order_items.each do |item| %>
+          <div class="mb-4 pb-4" style="border-bottom: 1px solid #e5e5e5;">
+            <div class="media">
+              <!-- Product Image -->
+              <figure class="media-left">
+                <% if item.product.image.attached? %>
+                  <p class="image is-square is-64x64 mt-1">
+                    <img src="<%= url_for(item.product.image) %>" class="product-cart-image" alt="Product Image">
+                  </p>
+                <% end %>
+              </figure>
+
+              <!-- Product Details -->
+              <div class="media-content">
+                <h2 class="has-text-black is-size-4 mb-2">
+                  <%= link_to item.product.name, product_path(item.product), class: "has-text-black" %>
+                </h2>
+                <p class="has-text-grey">Price: $<%= item.unit_price %></p>
+                <p class="has-text-grey">Quantity: <%= item.quantity %></p>
+
+                <div class="is-flex is-align-items-center mt-3">
+                    <%= form_with url: update_quantity_cart_path(item), method: :patch, local: true do |form| %>
+                        <%= hidden_field_tag :source, 'checkout' %>
+                        <div class="is-flex is-align-items-center">
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mr-3" style="width: 100px; border: 1px solid #ffdd57; border-radius: 5px;">
+                                <%= button_tag '-', class: 'button is-small is-warning', name: 'button_action', value: 'decrease' %>
+                                <strong class="has-text-black"><%= item.quantity %></strong>
+                                <%= button_tag '+', class: 'button is-small is-warning', name: 'button_action', value: 'increase' %>
+                            </div>
+                            <%= button_tag 'Delete', class: 'has-text-danger', style: 'border-left: 1px solid #e5e5e5; padding-left: 10px;', name: 'button_action', value: 'clear' %>
+                        </div>
+                    <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="column is-one-third">
+      <div class="box has-background-light">
+        <h2 class="has-text-black is-size-5 mb-2">Order Summary</h2>
+        <p class="mb-2"><strong class="has-text-black">Order Total: $<%= @order&.total_price || 0 %></strong></p>
+        <button class="button is-warning">Place Order</button>
+      </div>
+    </div>
+  </div>
+</div>
