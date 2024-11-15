@@ -134,3 +134,13 @@ body {
 .search-placeholder::placeholder {
     color: hsl(0, 0%, 48%);
 }
+
+// Cart Link
+.cart-link {
+    gap: 5px;
+}
+  
+.cart-count {
+    font-size: 14px;
+    font-weight: 500;
+}

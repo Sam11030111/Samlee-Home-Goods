@@ -1,7 +1,8 @@
 <nav class="navbar is-fixed-top">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <a class="navbar-item has-text-primary" href="/">
       <img src="<%= image_path("shopping.png") %>" alt="Shopping">
+      Samlee Home Goods
     </a>
     <div class="navbar-burger js-burger" data-target="navbarExample">
       <span></span>
@@ -15,8 +16,13 @@
     <div class="navbar-start">
       <a class="navbar-item <%= active_class('/') %>" href="/"> Products </a>
       <% if logged_in? %>
-        <a class="navbar-item <%= active_class('/cart') %>" href="/cart"> Cart </a>
         <a class="navbar-item <%= active_class('/orders') %>" href="/orders"> Orders </a>
+        <a class="navbar-item cart-link <%= active_class('/cart') %>" href="/cart"> 
+          <% if @cart_item_count > 0 %>
+            <span class="tag is-warning is-rounded cart-count"><%= @cart_item_count %></span>
+          <% end %>
+          Cart 
+        </a>
       <% end %>
     </div>
   </div>
