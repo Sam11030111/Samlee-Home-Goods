@@ -15,7 +15,7 @@
     });
 })();
 
-// Credit card input
+// Credit card
 document.addEventListener("DOMContentLoaded", function () {
   const cardNumberInput = document.querySelector(".card-number input");
   const monthInput = document.querySelector(".card-expire-month input");

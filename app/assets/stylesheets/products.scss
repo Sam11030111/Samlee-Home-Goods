@@ -144,3 +144,21 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
+
+// Order 
+.order-box {
+    border: 1px solid #ada9a9;
+}
+
+.sticky-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #f5f5f5;
+}
+
+.order-box {
+    padding-top: 100px;
+    overflow: hidden;
+}
