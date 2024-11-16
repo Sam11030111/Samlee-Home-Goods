@@ -94,7 +94,19 @@
 
     <div class="column is-one-third">
       <div class="box has-background-light">
-        <h2 class="mb-2 is-size-5"><strong class="has-text-black">Order Total: $<%= @order&.total_price || 0 %></strong></h2>
+        <% gst_rate = @user.province.gst_rate %>
+        <% pst_rate = @user.province.pst_rate %>
+        <% gst = (@order&.total_price || 0) * gst_rate %>
+        <% pst = (@order&.total_price || 0) * pst_rate %>
+        <% order_total = (@order&.total_price || 0) + gst + pst %>
+      
+        <p class="has-text-black">Items: $<%= @order&.total_price || 0 %></p>
+        <p class="has-text-black">Estimated GST: $<%= sprintf('%.2f', gst) %></p>
+        <p class="has-text-black mb-2">Estimated PST: $<%= sprintf('%.2f', pst) %></p>
+        <h2 class="mb-2 is-size-5">
+          <strong class="has-text-black">Order Total: $<%= sprintf('%.2f', order_total) %></strong>
+        </h2>
+       
         <%= button_to 'Place Order', place_order_checkout_index_path, method: :post, class: 'button is-warning' %>
       </div>
     </div>

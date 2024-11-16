@@ -19,9 +19,15 @@ class CheckoutController < ApplicationController
                 raise ActiveRecord::RecordInvalid, "Not enough stock for #{product.name}"
               end
             end
-    
-            # Mark the order as completed
-            @order.update!(status: 'completed')
+
+            # Calculate taxes and update total price
+            gst_rate = current_user.province.gst_rate
+            pst_rate = current_user.province.pst_rate
+            gst = @order.total_price * gst_rate
+            pst = @order.total_price * pst_rate
+            total_with_tax = (@order.total_price + gst + pst).round(2)
+
+            @order.update!(status: 'completed', total_price: total_with_tax)
             puts "✅ Order successfully placed!"
             flash[:notice] = 'Order successfully placed!'
             redirect_to orders_path
