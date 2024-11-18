@@ -15,7 +15,7 @@ services:
       POSTGRES_HOST: db
       POSTGRES_USER: samlee
       POSTGRES_PASSWORD: sam110306
-      POSTGRES_DB: samlee_home_goods_development
+      POSTGRES_DB: samlee_home_goods
     depends_on:
       - db
 
@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_USER: samlee
       POSTGRES_PASSWORD: sam110306
-      POSTGRES_DB: samlee_home_goods_development
+      POSTGRES_DB: samlee_home_goods
     ports:
       - "5432:5432"
     volumes:

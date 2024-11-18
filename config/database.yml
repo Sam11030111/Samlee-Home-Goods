@@ -9,7 +9,7 @@ default: &default
 
 development:
   <<: *default
-  database: samlee_home_goods_development
+  database: samlee_home_goods
 
 
 test:
