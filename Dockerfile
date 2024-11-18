@@ -24,6 +24,9 @@ RUN bundle install
 # Copy application code
 COPY . .
 
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
 # Expose port 3000 for Rails server
 EXPOSE 3000
 
@@ -31,6 +34,10 @@ EXPOSE 3000
 ENV RAILS_ENV="development" \
     BUNDLE_PATH="/usr/local/bundle"
 
+# Set entrypoint script as executable
+RUN chmod +x /entrypoint.sh
+
 # Start Rails server
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["/entrypoint.sh"]
+
 
