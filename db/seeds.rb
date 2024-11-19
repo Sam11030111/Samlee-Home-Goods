@@ -10,25 +10,29 @@ Category.destroy_all
 User.destroy_all
 Province.destroy_all
 
-# Create Provinces with name (including abbreviation)
+# Create Provinces with name, GST, and PST rates
 provinces_data = [
-  "Newfoundland and Labrador (NL)",
-  "Prince Edward Island (PE)",
-  "Nova Scotia (NS)",
-  "New Brunswick (NB)",
-  "Quebec (QC)",
-  "Ontario (ON)",
-  "Manitoba (MB)",
-  "Saskatchewan (SK)",
-  "Alberta (AB)",
-  "British Columbia (BC)",
-  "Yukon (YT)",
-  "Northwest Territories (NT)",
-  "Nunavut (NU)"
+  { name: "Newfoundland and Labrador (NL)", gst_rate: 0.05, pst_rate: 0.10 },
+  { name: "Prince Edward Island (PE)", gst_rate: 0.05, pst_rate: 0.10 },
+  { name: "Nova Scotia (NS)", gst_rate: 0.05, pst_rate: 0.10 },
+  { name: "New Brunswick (NB)", gst_rate: 0.05, pst_rate: 0.10 },
+  { name: "Quebec (QC)", gst_rate: 0.05, pst_rate: 0.09975 },
+  { name: "Ontario (ON)", gst_rate: 0.05, pst_rate: 0.08 },
+  { name: "Manitoba (MB)", gst_rate: 0.05, pst_rate: 0.07 },
+  { name: "Saskatchewan (SK)", gst_rate: 0.05, pst_rate: 0.06 },
+  { name: "Alberta (AB)", gst_rate: 0.05, pst_rate: 0.00 },
+  { name: "British Columbia (BC)", gst_rate: 0.05, pst_rate: 0.07 },
+  { name: "Yukon (YT)", gst_rate: 0.05, pst_rate: 0.00 },
+  { name: "Northwest Territories (NT)", gst_rate: 0.05, pst_rate: 0.00 },
+  { name: "Nunavut (NU)", gst_rate: 0.05, pst_rate: 0.00 }
 ]
 
-provinces = provinces_data.map do |province_name|
-  Province.create!(name: province_name)
+provinces = provinces_data.map do |province_data|
+  Province.create!(
+    name: province_data[:name],
+    gst_rate: province_data[:gst_rate],
+    pst_rate: province_data[:pst_rate]
+  )
 end
 
 # Create categories from Fake Store API
